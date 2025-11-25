@@ -13,8 +13,9 @@ public class Main {
 
             System.out.println("Connected!");
 
-            String query = "SELECT ProductID, ProductName, UnitPrice, UnitsInStock FROM Products";            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+            String query = "SELECT ProductID, ProductName, UnitPrice, UnitsInStock FROM Products";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery(query);
 
             while (rs.next()) {
                 int id = rs.getInt("ProductID");
