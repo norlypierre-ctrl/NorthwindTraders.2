@@ -10,7 +10,7 @@ public class Main {
         String password = "Yearup$909";
 
         try (Connection conn = DriverManager.getConnection(connectionString, username, password)) {
-
+            Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Connected!");
 
             String query = "SELECT ProductID, ProductName, UnitPrice, UnitsInStock FROM Products";
@@ -27,6 +27,8 @@ public class Main {
             }
         } catch (SQLException e) {
             System.out.println("An SQLException Occurred: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 }
