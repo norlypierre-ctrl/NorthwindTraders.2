@@ -10,22 +10,22 @@ public class Main {
         String password = "Yearup$909";
 
         try (Connection conn = DriverManager.getConnection(connectionString, username, password)) {
-            Class.forName( "com.mysql.cj.jdbc. Driver");
 
             System.out.println("Connected!");
 
-            String query = "SELECT ProductName FROM Products";
-            Statement stmt = conn.createStatement();
+            String query = "SELECT ProductID, ProductName, UnitPrice, UnitsInStock FROM Products";            Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             while (rs.next()) {
+                int id = rs.getInt("ProductID");
                 String name = rs.getString("ProductName");
-                System.out.println(name);
+                double price = rs.getDouble("UnitPrice");
+                int stock = rs.getInt("UnitsInStock");
+                System.out.printf(" ProductID: %s%n ProductName: %s%n UnitPrice: %s%n UnitInStock: %s%n" +
+                                "%n--------------------------------%n", id, name, price, stock);
             }
         } catch (SQLException e) {
             System.out.println("An SQLException Occurred: " + e.getMessage());
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
         }
     }
 }
